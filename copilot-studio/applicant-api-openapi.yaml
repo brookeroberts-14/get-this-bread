@@ -1,74 +1,62 @@
-swagger: '2.0'
+swagger: "2.0"
+
 info:
-  title: Recruiting Copilot Applicant API
-  description: Retrieves a synthetic applicant record by applicant ID for factual summarization, evidence lookup, and interview preparation. Never use this API to rank, score, or make employment decisions.
-  version: '1.0'
-host: REPLACE-WITH-YOUR-VERCEL-DOMAIN.vercel.app
+  title: Applicant Summary API
+  version: "1.0"
+
+host: get-this-bread.vercel.app
 basePath: /api
+
 schemes:
   - https
-consumes:
-  - application/json
-produces:
-  - application/json
+
 paths:
-  /applicants:
+  /applicant-summary:
     get:
-      operationId: GetApplicant
-      summary: Get one applicant by applicant ID
-      description: Use this action when a recruiter supplies an applicant ID such as APP-102 and asks for a factual summary, resume evidence, skills, education, interview questions, or an interview packet. Do not use it to rank or score applicants.
+      operationId: RetrieveApplicantRecord
+      summary: Retrieve applicant record
+
       parameters:
         - name: id
           in: query
           required: true
           type: string
-          description: The applicant ID displayed in the recruiting site, for example APP-102.
+
       responses:
-        '200':
-          description: Applicant record returned successfully.
+        "200":
+          description: Applicant data
+
           schema:
-            $ref: '#/definitions/ApplicantResponse'
-        '404':
-          description: Applicant ID was not found.
-definitions:
-  ApplicantResponse:
-    type: object
-    properties:
-      applicant:
-        $ref: '#/definitions/Applicant'
-      usageNotice:
-        type: string
-  Applicant:
-    type: object
-    properties:
-      id: {type: string}
-      name: {type: string}
-      jobId: {type: string}
-      jobTitle: {type: string}
-      status: {type: string}
-      source: {type: string}
-      appliedDate: {type: string}
-      recruiter: {type: string}
-      email: {type: string}
-      phone: {type: string}
-      location: {type: string}
-      skills:
-        type: array
-        items: {type: string}
-      education: {type: string}
-      professionalSummary: {type: string}
-      experience:
-        type: array
-        items:
-          $ref: '#/definitions/Experience'
-      coverLetter: {type: string}
-      interviews:
-        type: array
-        items: {type: object}
-  Experience:
-    type: object
-    properties:
-      title: {type: string}
-      company: {type: string}
-      dates: {type: string}
-      details: {type: string}
+            type: object
+
+            properties:
+              id:
+                type: string
+              name:
+                type: string
+              jobTitle:
+                type: string
+              status:
+                type: string
+              source:
+                type: string
+              appliedDate:
+                type: string
+              recruiter:
+                type: string
+              email:
+                type: string
+              phone:
+                type: string
+              location:
+                type: string
+              skills:
+                type: string
+              education:
+                type: string
+              professionalSummary:
+                type: string
+              experienceSummary:
+                type: string
+              coverLetter:
+                type: string
